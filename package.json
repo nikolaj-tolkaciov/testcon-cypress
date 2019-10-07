@@ -1,0 +1,22 @@
+{
+  "name": "cypress-automation101",
+  "version": "1.0.0",
+  "description": "Framework for TestCon Automation 101 lecture",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "3.4.1",
+    "eslint": "^6.5.1",
+    "eslint-plugin-cypress": "2.2.1"
+  },
+  "scripts": {
+    "setup": "npm install && setup.bat",
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikolaj-tolkaciov/testcon-cypress.git"
+  },
+  "author": "Devbridge",
+  "license": "MIT"
+}
