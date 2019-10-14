@@ -8,6 +8,7 @@ describe('Login functionality', function() {
     })
 
     it('Should be able to login with role User', function () {
+        
         cy.get('[id="loginForm.userId"]').click({force:true})
         cy.get('[aria-label="Demo User"]').click()
         cy.get('[id="loginForm.role"]').click({force:true})
