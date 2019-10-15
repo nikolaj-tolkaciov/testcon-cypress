@@ -21,4 +21,12 @@ describe('Login functionality', function() {
         cy.get('.user-info__title').contains('Demo User')
         cy.get('.main-nav').find('li').should('have.length', 1)
     })
+
+    it('Should match current date value with current date cell', function () {
+        
+        
+        
+        cy.get('.calendar--today').find('span.calendar__date').contains( 15)
+    })
+
 })
