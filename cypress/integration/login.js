@@ -20,5 +20,8 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible');
         cy.get('.user-info__title').contains('Demo User');
         cy.get('.main-nav').find('li').should('have.length', 1)
+        cy.get('#root > div > div.page__header > div > div.main-header__actions > button > div > span').click({force: true}).then(() => {
+            cy.get('button.btn__list-item:nth-child(1)').click();
+        })
     })
 });
