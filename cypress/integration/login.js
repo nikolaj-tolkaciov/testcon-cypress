@@ -20,7 +20,7 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible');
         cy.get('.user-info__title').contains('Demo User');
         cy.get('.main-nav').find('li').should('have.length', 1);
-        let d = new Date(), a = d.getUTCDate();
-        cy.get('.calendar--today').contains(a);
+        let date = new Date(), today = date.getUTCDate();
+        cy.get('.calendar--today').contains(today);
     })
 });
