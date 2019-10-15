@@ -11,14 +11,14 @@ describe('Login functionality', function() {
 
     it('Should be able to login with all roles', function () {
         const roles = ["User", "Team Lead", "Manager", "Accountant", "Admin"]
-        const tabs = [1,       2,           5,         5,            6]
+        const tabs =  [ 1,      2,           5,         5,            6]
         const user = "TestCon User 10"
+        const loginPage = new LoginPage()
+        loginPage.visit()
         for (let i = 0; i < roles.length; i++) {
-            cy.get('[id="loginForm.userId"]').click({force:true})
-            cy.get(`[aria-label="${user}"]`).click()
-            cy.get('[id="loginForm.role"]').click({force:true})
-            cy.get(`[aria-label="${roles[i]}"]`).click()
-            cy.get('[type="submit"]').click()
+            loginPage.setUserLogin(user)
+            loginPage.setRole(roles[i])
+            loginPage.clickLogin()
 
             cy.url().should('include', '/time-logging')
             cy.get('.page__title').should('contain.text', 'Timesheets')
