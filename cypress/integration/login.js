@@ -24,7 +24,7 @@ describe('Login functionality', function() {
         cy.get('.user-info__title').contains('TestCon User 23')
         cy.get('.main-nav').find('li').should('have.length', 1)
         cy.get('.calendar__date').should('have.css', 'background-color')
-        cy.get('[data-test="timesheets-current-day"]').contains(today)
+        cy.get('.calendar__date').contains(today)
     
     })
 })
