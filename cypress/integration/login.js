@@ -1,15 +1,17 @@
+import LoginPage from './LoginPage'
+
 describe('Login functionality', function() {
     it('Should display validation for empty user after attempted loggin', function () {
-       
-        cy.visit('/')
-        cy.get('.Select.not-valid').should('not.visible')
+        const loginPage = new LoginPage()
+        loginPage.visit()
+        loginPage.getUserSelectorDropDown().should('not.visible')
         cy.get('[type="submit"]').click()
-        cy.get('.Select.not-valid').should('be.visible')
+        loginPage.getUserSelectorDropDown().should('be.visible')
     })
 
     it('Should be able to login with all roles', function () {
         const roles = ["User", "Team Lead", "Manager", "Accountant", "Admin"]
-        const tabs = [1, 2, 5, 5, 6]
+        const tabs = [1,       2,           5,         5,            6]
         const user = "TestCon User 10"
         for (let i = 0; i < roles.length; i++) {
             cy.get('[id="loginForm.userId"]').click({force:true})
