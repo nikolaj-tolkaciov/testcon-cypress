@@ -21,6 +21,6 @@ describe("Login functionality", function() {
     cy.get(".main-nav")
       .find("li")
       .should("have.length", 2);
-    cy.get("");
+    cy.get(".calendar--today").contains(`${new Date().getDate()}`);
   });
 });
