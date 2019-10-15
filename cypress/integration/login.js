@@ -24,7 +24,7 @@ describe('Login functionality', function() {
 
     it('Should have valid today date', function () {
 
-        const todaysDate = Cypress.moment().format('DD')
-        cy.get('.calendar--today').contains(todaysDate)
+        var myDate = new Date;
+        cy.get('.calendar--today').contains(myDate.getDate())
     })
 })
