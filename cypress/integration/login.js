@@ -10,9 +10,14 @@ describe('Login functionality', function() {
     it('Should be able to login with role User', function () {
         cy.get('[id="loginForm.userId"]').click({force:true})
         cy.get('[aria-label="TestCon User 24"]').click()
-        cy.get('[id="loginForm.role"]').click({force:true})
-        cy.get('[aria-label="Team Lead"]').click()
-        cy.get('[type="submit"]').click()
+        cy.get('[id="loginForm.role"]').each(function () {
+          //cy.get('[id="loginForm.role"]').click({ force: true })
+        
+            cy.get('[aria-label="Team Lead"]').click()
+            cy.get('[type="submit"]').click()
+
+
+        })
 
         cy.url().should('include', '/time-logging')
         cy.get('.page__title').contains('Timesheets')
