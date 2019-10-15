@@ -10,8 +10,8 @@ describe('User roles', function() {
     
         cy.get('[title="TestCon User 23"]').should('have.text', 'TestCon User 23')
         cy.get('.main-nav').find('li').should('have.length', 6)
-        cy.get('[aria-labelledby="timeLoggingId"]').click()
         cy.get('[aria-labelledby="timeLoggingId"]')
+        .click()        
         .should('have.css', 'color')
         .and('eq', 'rgb(64, 76, 237)')
     })
