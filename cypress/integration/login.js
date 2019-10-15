@@ -1,28 +1,35 @@
+import LoginPage from '../object/LoginPage'
+import TimeLoggingPage from '../object/TimeLoggingPage'
 const testUser = 'TestCon User 1'
 
 describe('Login functionality', function() {
     it('Should display validation for empty user after attempted loggin', function () {
-       
-        cy.visit('/')
-        cy.get('.Select.not-valid').should('not.visible')
-        cy.get('[type="submit"]').click()
-        cy.get('.Select.not-valid').should('be.visible')
+        const loginPage = new LoginPage()
+        loginPage.visitLogin()
+        loginPage.getInvalidSelectElement().should('not.visible')
+        loginPage.getSubmitButton().click()
+        loginPage.getInvalidSelectElement().should('be.visible')
     })
 
     it('Should be able to login with role Team Lead and check if calendar selects current day', function () {
-        cy.get('[id="loginForm.userId"]').click({force:true})
-        cy.get(`[aria-label="${testUser}"]`).click()
-        cy.get('[id="loginForm.role"]').click({force:true})
-        cy.get('[aria-label="Team Lead"]').click()
-        cy.get('[type="submit"]').click()
+        const loginPage = new LoginPage()
+
+        loginPage.getLoginFormUserInput().click({force:true})
+        loginPage.getUsernameElement(testUser).click()
+        loginPage.getLoginFormRoleInput().click({force:true})
+        loginPage.getRoleElement('Team Lead').click()
+        loginPage.getSubmitButton().click()
 
         cy.url().should('include', '/time-logging')
-        cy.get('.page__title').contains('Timesheets')
-        cy.get('.calendar').should('be.visible')
-        cy.get('.tile.form').should('be.visible')
-        cy.get('.user-info__title').contains(`${testUser}`)
-        cy.get('.main-nav').find('li').should('have.length', 2)
-        cy.get('.calendar--selected').contains(`${new Date().getDate()}`)
+
+        const timeLoggingPage = new TimeLoggingPage()
+
+        timeLoggingPage.getPageTitle().contains('Timesheets')
+        timeLoggingPage.getCalendar().should('be.visible')
+        timeLoggingPage.getTileForm().should('be.visible')
+        timeLoggingPage.getUserName().contains(`${testUser}`)
+        timeLoggingPage.getMainNavigation().find('li').should('have.length', 2)
+        timeLoggingPage.getSelectedCalendarDay().contains(`${new Date().getDate()}`)
     })
 
     describe('Should be able to login with all user roles and get required amount navigation tabs', () => {
@@ -51,16 +58,21 @@ describe('Login functionality', function() {
 
         expectedDataCollection.forEach(expectedData => {
             it(`Should log in with ${expectedData.name} role and have ${expectedData.navTabs} tabs in navigation`, () => {
-                cy.visit('/')
-                cy.get('[id="loginForm.role"]')
-                cy.get('[id="loginForm.userId"]').click({force:true})
-                cy.get(`[aria-label="${testUser}"]`).click()
-                cy.get('[id="loginForm.role"]').click({force:true})
-                cy.get(`[aria-label="${expectedData.name}"]`).click()
-                cy.get('[type="submit"]').click()
+                const loginPage = new LoginPage()
+                loginPage.visitLogin()
+
+                loginPage.getLoginFormUserInput().click({force:true})
+                loginPage.getUsernameElement(testUser).click()
+                loginPage.getLoginFormRoleInput().click({force:true})
+                loginPage.getRoleElement(expectedData.name).click()
+                loginPage.getSubmitButton().click()
+
                 cy.url().should('include', '/time-logging')
-                cy.get('.main-nav').find('li').should('have.length', expectedData.navTabs)
-                cy.get('.main-nav__link--active').contains('Time Logging')
+        
+                const timeLoggingPage = new TimeLoggingPage()
+
+                timeLoggingPage.getMainNavigation().find('li').should('have.length', expectedData.navTabs)
+                timeLoggingPage.getActiveMainNavigationLink().contains('Time Logging')
             })
         })
     })
