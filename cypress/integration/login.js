@@ -19,7 +19,13 @@ describe('Login functionality', function() {
         cy.get('.calendar').should('be.visible')
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('Demo User')
-        cy.get('[data-test="timesheets-current-day"]').contains(15)
         cy.get('.main-nav').find('li').should('have.length', 1)
+    })
+
+    it('Should have valid today date', function () {
+
+        const todaysDate = Cypress.moment().format('DD')
+        cy.get('[data-test="timesheets-current-day"]').contains(todaysDate)
+
     })
 })
