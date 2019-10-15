@@ -1,4 +1,6 @@
-describe('Login functionality', function() {
+//import LoginPage from ('../objects/loginPage.js')
+
+describe('Login functionality', function () {
     it('Should display validation for empty user after attempted loggin', function () {
        
         cy.visit('/')
@@ -34,8 +36,14 @@ describe('Login functionality', function() {
 
     expectedDataCollection.forEach(expectedData => {
         it(`Should log in with ${expectedData.name} role and have ${expectedData.navTabs} tabs in navigation`, () => {
-            cy.visit('/')
-            cy.get('[id="loginForm.role"]')
+            //const loginPage = new LoginPage()
+            //loginPage.visit()
+            //loginPage.getUserSelectDropdown(),
+            //    cy.get('[type="Submit"]').click()
+            //loginPage.getUserSelectDropdown(),
+            //cy.visit('/')            
+            //cy.get('[id="loginForm.role"]')
+            cy.visit('/')            
             cy.get('[id="loginForm.userId"]').click({ force: true })
             cy.get(`[aria-label="${testUser}"]`).click()
             cy.get('[id="loginForm.role"]').click({ force: true })
