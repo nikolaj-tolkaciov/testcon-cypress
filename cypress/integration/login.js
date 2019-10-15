@@ -20,7 +20,8 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('Demo User')
         cy.get('.main-nav').find('li').should('have.length', 1)
-        cy.get('[data-test="timesheets-current-day"]').contains(15)
+        let d = new Date(), a = d.getUTCDate();
+        cy.get('.calendar--today').contains(a);
         //#root > div > div.page__main > div > div > div: nth - child(2) > div > div.grid__column.grid__column--7 - col > div > div.calendar__body > div: nth - child(3) > div.calendar__day.calendar--today.calendar--selected
     })
 })
