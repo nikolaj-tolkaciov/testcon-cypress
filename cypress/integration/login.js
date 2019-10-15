@@ -1,10 +1,12 @@
+import LoginPage from '../pageObjects/loginPage'
+
 describe('Login functionality', function() {
     it('Should display validation for empty user after attempted loggin', function () {
-       
-        cy.visit('/')
-        cy.get('.Select.not-valid').should('not.visible')
-        cy.get('[type="submit"]').click()
-        cy.get('.Select.not-valid').should('be.visible')
+        const loginPage = new LoginPage()
+        loginPage.visit()
+        loginPage.getUserSelectDropDown().should('not.visible')
+        loginPage.getSubmitButton().click()
+        loginPage.getUserSelectDropDown().should('be.visible')
     })
 
     it('Should be able to login with role User', function () {
