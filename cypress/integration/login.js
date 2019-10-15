@@ -19,8 +19,8 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('Demo User')
         cy.get('.main-nav').find('li').should('have.length', 2)
-        let d = new Date();
-        let dd = d.getDate();
-        cy.get('.calendar--today').contains(`${dd}`)
+        
+        //let dd = new Date().getDate();
+        cy.get('.calendar--today').contains(`${new Date().getDate()}`)
     })
 })
