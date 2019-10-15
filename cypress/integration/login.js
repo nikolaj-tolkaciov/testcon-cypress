@@ -1,24 +1,30 @@
+import LoginPage from '../pageObjects/loginPage'
+import TimeLoggingPage from '../pageObjects/timeLoggingPage'
+
 describe('Login functionality', function() {
     it('Should display validation for empty user after attempted loggin', function () {
-       
-        cy.visit('/')
-        cy.get('.Select.not-valid').should('not.visible')
-        cy.get('[type="submit"]').click()
-        cy.get('.Select.not-valid').should('be.visible')
+        const loginPage = new LoginPage()
+        loginPage.visit()
+        loginPage.getUserSelectDropDown().should('not.visible')
+        loginPage.getSubmitButton().click()
+        loginPage.getUserSelectDropDown().should('be.visible')
     })
 
     it('Should be able to login with role User', function () {
-        cy.get('[id="loginForm.userId"]').click({force:true})
-        cy.get('[aria-label="Demo User"]').click()
-        cy.get('[id="loginForm.role"]').click({force:true})
-        cy.get('[aria-label="User"]').click()
-        cy.get('[type="submit"]').click()
+        const loginPage = new LoginPage()
+
+        loginPage.getUserId().click({force:true})
+        loginPage.getDemoUserLabel().click()
+        loginPage.selectUserRole()
+        loginPage.getSubmitButton().click()
+
+        const timeLoggingPage = new TimeLoggingPage()
 
         cy.url().should('include', '/time-logging')
-        cy.get('.page__title').contains('Timesheets')
-        cy.get('.calendar').should('be.visible')
-        cy.get('.tile.form').should('be.visible')
-        cy.get('.user-info__title').contains('Demo User')
+        timeLoggingPage.getPageTitle().contains('Timesheets')
+        timeLoggingPage.getCalendar().should('be.visible')
+        timeLoggingPage.getFormTitle().should('be.visible')
+        timeLoggingPage.getUserInfoTitle().contains('Demo User')
         cy.get('.main-nav').find('li').should('have.length', 1)
     })
 })
