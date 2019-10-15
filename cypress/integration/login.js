@@ -22,7 +22,7 @@ describe('Login functionality', function() {
         cy.get('.main-nav').find('li').should('have.length', 2)
 
 	it('Should verify todays date')
-        cy.get('.calendar--selected').contains(`${new Date().getDate()}`)
+        cy.get('.calendar--today').contains(`${new Date().getDate()}`)
 		
     })
 })
