@@ -16,7 +16,7 @@ class LoginPage {
     cy.get(`[aria-label="${name}"]`).click();
     cy.get('[id="loginForm.role"]').click({ force: true });
     cy.get(`[aria-label="${role}"]`).click();
-    cy.get('[type="submit"]').click();
+    this.submitForm();
   }
 }
 export default LoginPage;
