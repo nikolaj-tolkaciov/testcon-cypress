@@ -1,2 +1,5 @@
+.gitignore~
+*~
 cypress/fixtures/
 node_modules/
+.vs/
