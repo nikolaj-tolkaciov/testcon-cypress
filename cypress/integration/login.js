@@ -9,7 +9,7 @@ describe('Login functionality', function() {
 
     it('Should be able to login with role User', function () {
         cy.get('[id="loginForm.userId"]').click({force:true})
-        cy.get('[aria-label="Demo User"]').click()
+        cy.get('[aria-label="TestCon User 9"]').click()
         cy.get('[id="loginForm.role"]').click({force:true})
         cy.get('[aria-label="User"]').click()
         cy.get('[type="submit"]').click()
@@ -18,7 +18,7 @@ describe('Login functionality', function() {
         cy.get('.page__title').contains('Timesheets')
         cy.get('.calendar').should('be.visible')
         cy.get('.tile.form').should('be.visible')
-        cy.get('.user-info__title').contains('Demo User')
+        cy.get('.user-info__title').contains('TestCon User 9')
         cy.get('.main-nav').find('li').should('have.length', 1)
         cy.get('.calendar--today').contains(`${new Date().getDate()}`)
     })
