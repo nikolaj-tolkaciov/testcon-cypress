@@ -3,7 +3,7 @@ class LoginPage {
         cy.visit('/')
     }
 
-    getUserSelectDropdown() {
+    getUserSelectDropdown() {        
         return cy.get('.Select.not-valid')
     }
 
@@ -25,6 +25,10 @@ class LoginPage {
 
     selectRole(role){
         return cy.get(`[aria-label="${role}"]`)
+    }
+
+    getCalendarForToday(){
+        return cy.get('.calendar--today')
     }
 }
 
