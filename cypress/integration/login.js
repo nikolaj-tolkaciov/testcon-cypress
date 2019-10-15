@@ -21,6 +21,6 @@ describe('Login functionality', function() {
         cy.get('.user-info__title').contains('Demo User')
         cy.get('.main-nav').find('li').should('have.length', 1)
         var d = new Date()
-        cy.get('.calendar--today > span').should('have.text', d.getDate().toString())
+        cy.get('.calendar--today').should('have.text', d.getDate().toString())
     })
 })
