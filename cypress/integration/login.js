@@ -20,6 +20,7 @@ describe("Login functionality", function() {
     cy.get(".user-info__title").contains("Demo User");
     cy.get(".main-nav")
       .find("li")
-      .should("have.length", 1);
+      .should("have.length", 2);
+    cy.get("");
   });
 });
