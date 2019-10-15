@@ -1,4 +1,4 @@
-describe('Login functionality', function() {
+describe('T2 Verify Roles', function() {
     it('Should display validation for empty user after attempted loggin', function () {
        
         cy.visit('/')
@@ -6,6 +6,8 @@ describe('Login functionality', function() {
         cy.get('[type="submit"]').click()
         cy.get('.Select.not-valid').should('be.visible')
     })
+
+    let rolesArray = ["User", "Team Lead", "Manager", "Accountant", "Admin"];
 
     it('Should be able to login with role User', function () {
         cy.get('[id="loginForm.userId"]').click({force:true})
@@ -20,11 +22,11 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('TestCon User 6')
         cy.get('.main-nav').find('li').should('have.length', 1)
-    })
 
-    it('Should have valid today date', function () {
+        cy.get('.main-nav__link--active').contains('Time Logging');
+        cy.get('.main-nav__link--active').should('have.css', 'color', 'rgb(64, 76, 237)');
 
-        var myDate = new Date();
-        cy.get('.calendar--today').contains(myDate.getDate())
+        cy.get('.user-info__title').click();
+        cy.get('.btn__list-item').contains('Log Out').click();
     })
 })
