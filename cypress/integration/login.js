@@ -33,6 +33,7 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('TestCon User 4')
         cy.get('.main-nav').find('li').should('have.length', 1)
+        // cy.get('.calendar--today').contains(`${new Date().getDate()}`)
     })
 
     it('Should be able to login with role Team Lead', function () {
