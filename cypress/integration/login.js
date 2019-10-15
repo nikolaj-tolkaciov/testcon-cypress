@@ -1,6 +1,6 @@
-describe('Login functionality', function() {
+describe('Login functionality', function () {
     it('Should display validation for empty user after attempted loggin', function () {
-       
+
         cy.visit('/')
         cy.get('.Select.not-valid').should('not.visible')
         cy.get('[type="submit"]').click()
@@ -8,9 +8,10 @@ describe('Login functionality', function() {
     })
 
     it('Should be able to login with role User', function () {
-        cy.get('[id="loginForm.userId"]').click({force:true})
+        const today = new Date();
+        cy.get('[id="loginForm.userId"]').click({force: true})
         cy.get('[aria-label="Demo User"]').click()
-        cy.get('[id="loginForm.role"]').click({force:true})
+        cy.get('[id="loginForm.role"]').click({force: true})
         cy.get('[aria-label="User"]').click()
         cy.get('[type="submit"]').click()
 
@@ -20,5 +21,6 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('Demo User')
         cy.get('.main-nav').find('li').should('have.length', 1)
+        cy.get('[class^="calendar__day calendar--today calendar--selected"]').contains(today.getDate())
     })
 })
