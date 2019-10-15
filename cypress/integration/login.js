@@ -25,7 +25,6 @@ describe('Login functionality', function() {
     it('Should have valid today date', function () {
 
         const todaysDate = Cypress.moment().format('DD')
-        cy.get('[data-test="timesheets-current-day"]').contains(todaysDate)
-
+        cy.get('[class="calendar__day calendar--today calendar--selected"]').contains(todaysDate)
     })
 })
