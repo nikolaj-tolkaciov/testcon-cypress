@@ -9,11 +9,9 @@ describe('Login functionality', function() {
     it('Should display validation for empty user after attempted loggin', function () {
        
         loginPage.visit();
-        /**
         loginPage.getUserSelectDropdown().should('not.visible')
         loginPage.submit().click()
         loginPage.getUserSelectDropdown().should('be.visible')
-        **/
     })
 
     it('Should be able to login with role User', function () {
