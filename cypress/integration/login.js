@@ -7,20 +7,31 @@ describe('Login functionality', function() {
         cy.get('.Select.not-valid').should('be.visible')
     })
 
-    it('Should be able to login with role User', function () {
-        cy.get('[id="loginForm.userId"]').click({force:true})
-        cy.get('[aria-label="Demo User"]').click()
-        cy.get('[id="loginForm.role"]').click({force:true})
-        cy.get('[aria-label="Team Lead"]').click()
-        cy.get('[type="submit"]').click()
+    it('Should be able to login with all roles', function () {
+        const roles = ["User", "Team Lead", "Manager", "Accountant", "Admin"]
+        const tabs = [1, 2, 5, 5, 6]
+        const user = "TestCon User 10"
+        for (let i = 0; i < roles.length; i++) {
+            cy.get('[id="loginForm.userId"]').click({force:true})
+            cy.get(`[aria-label="${user}"]`).click()
+            cy.get('[id="loginForm.role"]').click({force:true})
+            cy.get(`[aria-label="${roles[i]}"]`).click()
+            cy.get('[type="submit"]').click()
 
-        cy.url().should('include', '/time-logging')
-        cy.get('.page__title').contains('Timesheets')
-        cy.get('.calendar').should('be.visible')
-        cy.get('.tile.form').should('be.visible')
-        cy.get('.user-info__title').contains('Demo User')
-        cy.get('.main-nav').find('li').should('have.length', 2)
-        var today = new Date()
-        cy.get('.calendar--today > span').should('have.text', today.getDate().toString())
+            cy.url().should('include', '/time-logging')
+            cy.get('.page__title').should('contain.text', 'Timesheets')
+            cy.get('.calendar').should('be.visible')
+            cy.get('.tile.form').should('be.visible')
+            cy.get('.user-info__title').contains(`${user}`)
+            cy.get('.main-nav').find('li').should('have.length', tabs[i])
+
+            cy.get('.main-nav__link--active').should('contain.text', "Time Logging")
+            cy.get('[aria-labelledby="timeLoggingId"]')     
+            .should('have.css', 'color')
+            .and('eq', 'rgb(64, 76, 237)')
+
+            cy.get('.user-button').click()
+            cy.get('.btn__list-item').contains('Log Out').click()
+        }
     })
 })
