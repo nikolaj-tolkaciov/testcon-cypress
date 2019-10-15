@@ -23,6 +23,5 @@ class LoginPage{
         cy.get('[id="loginForm.role"]').click({force:true})
         cy.get('[aria-label="User"]').click()
     }
-
 }
 export default LoginPage

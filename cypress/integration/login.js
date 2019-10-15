@@ -1,4 +1,5 @@
 import LoginPage from '../pageObjects/loginPage'
+import TimeLoggingPage from '../pageObjects/timeLoggingPage'
 
 describe('Login functionality', function() {
     it('Should display validation for empty user after attempted loggin', function () {
@@ -11,16 +12,19 @@ describe('Login functionality', function() {
 
     it('Should be able to login with role User', function () {
         const loginPage = new LoginPage()
+
         loginPage.getUserId().click({force:true})
         loginPage.getDemoUserLabel().click()
         loginPage.selectUserRole()
         loginPage.getSubmitButton().click()
 
+        const timeLoggingPage = new TimeLoggingPage()
+
         cy.url().should('include', '/time-logging')
-        cy.get('.page__title').contains('Timesheets')
-        cy.get('.calendar').should('be.visible')
-        cy.get('.tile.form').should('be.visible')
-        cy.get('.user-info__title').contains('Demo User')
+        timeLoggingPage.getPageTitle().contains('Timesheets')
+        timeLoggingPage.getCalendar().should('be.visible')
+        timeLoggingPage.getFormTitle().should('be.visible')
+        timeLoggingPage.getUserInfoTitle().contains('Demo User')
         cy.get('.main-nav').find('li').should('have.length', 1)
     })
 })
