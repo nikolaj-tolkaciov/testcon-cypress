@@ -1,27 +1,25 @@
+import LoginPage from "../page-objects/login.po";
+import HomePage from "../page-objects/home.po";
+
 describe("Login functionality", function() {
+  const loginPage = new LoginPage();
+  const homePage = new HomePage();
   it("Should display validation for empty user after attempted loggin", function() {
-    cy.visit("/");
-    cy.get(".Select.not-valid").should("not.visible");
-    cy.get('[type="submit"]').click();
-    cy.get(".Select.not-valid").should("be.visible");
+    loginPage.visit();
+    loginPage.getUserWarning().should("not.visible");
+    loginPage.submitForm();
+    loginPage.getUserWarning().should("be.visible");
   });
 
   it("Should be able to login with role User", function() {
-    cy.get('[id="loginForm.userId"]').click({ force: true });
-    cy.get('[aria-label="Demo User"]').click();
-    cy.get('[id="loginForm.role"]').click({ force: true });
-    cy.get('[aria-label="Team Lead"]').click();
-    cy.get('[type="submit"]').click();
-
+    loginPage.login("Demo User", "Team Lead");
     cy.url().should("include", "/time-logging");
-    cy.get(".page__title").contains("Timesheets");
-    cy.get(".calendar").should("be.visible");
-    cy.get(".tile.form").should("be.visible");
-    cy.get(".user-info__title").contains("Demo User");
-    cy.get(".main-nav")
-      .find("li")
-      .should("have.length", 2);
-    cy.get(".calendar--today").contains(`${new Date().getDate()}`);
+    homePage.getPageTitle().contains("Timesheets");
+    homePage.getCalendar().should("be.visible");
+    homePage.getProjectInfoForm().should("be.visible");
+    homePage.getUserNameTitle().contains("Demo User");
+    homePage.getAvailableTabs().should("have.length", 2);
+    homePage.getCurrentCalendarDate().contains(`${new Date().getDate()}`);
   });
 
   const rolesData = [
@@ -51,18 +49,13 @@ describe("Login functionality", function() {
     it(`Should login as ${roles.name} and have ${roles.tabs} tabs`, function() {
       cy.clearLocalStorage("ACCESS_TOKEN");
       cy.reload();
-      cy.get('[id="loginForm.userId"]').click({ force: true });
-      cy.get('[aria-label="TestCon User 2"]').click();
-      cy.get('[id="loginForm.role"]').click({ force: true });
-      cy.get(`[aria-label="${roles.name}"]`).click();
-      cy.get('[type="submit"]').click();
+      loginPage.login("TestCon User 2", roles.name);
 
-      cy.get(".user-info__title").contains("TestCon User 2");
-      cy.get(".main-nav")
-        .find("li")
-        .should("have.length", roles.tabs);
-      cy.get(".main-nav__link--active").contains("Time Logging");
-      cy.get(".main-nav__link--active")
+      homePage.getUserNameTitle().contains("TestCon User 2");
+      homePage.getAvailableTabs().should("have.length", roles.tabs);
+      homePage.getActiveTab().contains("Time Logging");
+      homePage
+        .getActiveTab()
         .should("have.css", "color")
         .and("equal", "rgb(64, 76, 237)");
     });
