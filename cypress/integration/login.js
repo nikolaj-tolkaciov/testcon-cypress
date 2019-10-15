@@ -21,6 +21,6 @@ describe('Login functionality', function() {
         cy.get('.main-nav').find('li').should('have.length', 2)
         let d = new Date();
         let dd = d.getDate();
-        cy.get('[class="calendar__day calendar--today calendar--selected"]').contains(`${dd}`)
+        cy.get('.calendar--today').contains(`${dd}`)
     })
 })
