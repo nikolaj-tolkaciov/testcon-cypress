@@ -20,6 +20,7 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('Demo User')
         cy.get('.main-nav').find('li').should('have.length', 1)
-        cy.get('[data-test="timesheets-current-day"]').contains(15)
+        var today = new Date()
+        cy.get('.calendar--today > span').should('have.text', today.getDate().toString())
     })
 })
