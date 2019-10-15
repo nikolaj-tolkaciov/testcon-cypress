@@ -23,8 +23,9 @@ describe('Login functionality', function() {
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('TestCon User 23')
         cy.get('.main-nav').find('li').should('have.length', 1)
-        cy.get('.calendar__date').should('have.css', 'background-color')
-        cy.get('.calendar__date').contains(today)
+        cy.get('.calendar--today').should('have.css', 'background-color')
+        cy.get('.calendar--today').should('contain', today)
     
     })
 })
+
