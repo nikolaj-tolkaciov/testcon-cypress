@@ -21,6 +21,6 @@ describe('Login functionality', function() {
         cy.get('.user-info__title').contains('Demo User');
         cy.get('.main-nav').find('li').should('have.length', 1);
         let date = new Date(), today = date.getUTCDate();
-        cy.get('.calendar--today').contains(today);
+        cy.get('.calendar--today').should('have.text',String(today));
     })
 });
