@@ -1,2 +1,4 @@
 cypress/fixtures/
 node_modules/
+/~$rkshop_test_cases.docx
+/.vs/slnx.sqlite
