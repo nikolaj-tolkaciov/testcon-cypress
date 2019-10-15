@@ -19,7 +19,9 @@ describe('Login functionality', function() {
         cy.get('.calendar').should('be.visible')
         cy.get('.tile.form').should('be.visible')
         cy.get('.user-info__title').contains('Demo User')
-        cy.get('[data-test="timesheets-current-day"]').contains('15')
+        //getting the today date and extract the day
+        var date = new Date().getDate()
+        cy.get('[data-test="timesheets-current-day"]').contains(date)
         //cy.get('.main-nav').find('li').should('have.length', 1)
     })
 })
